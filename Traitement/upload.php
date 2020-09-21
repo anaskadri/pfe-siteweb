@@ -18,15 +18,28 @@ if(isset($_POST["submit"])) {
         mkdir($target_dir);
     }
 //récuperation des fichiers pdf
-    $target_cv = $target_dir ."/". basename(mt_rand().".pdf");
-    $target_cin = $target_dir ."/". basename(mt_rand().".pdf");
-    $target_bac = $target_dir ."/". basename(mt_rand().".pdf");
-    $target_diplome = $target_dir ."/". basename(mt_rand().".pdf");
+    $rand_cv = mt_rand();
+    $rand_cin= mt_rand();
+    $rand_bac= mt_rand();
+    $rand_diplome= mt_rand();
+
+
+    $target_cv = $target_dir ."/". basename("$rand_cv".".pdf");
+    $target_cin = $target_dir ."/". basename("$rand_cin".".pdf");
+    $target_bac = $target_dir ."/". basename("$rand_bac".".pdf");
+    $target_diplome = $target_dir ."/". basename("$rand_diplome".".pdf");
+
+    $target_cv_sql = strtoupper($cin) ."/". basename("$rand_cv".".pdf");
+    $target_cin_sql = strtoupper($cin) ."/". basename("$rand_cin".".pdf");
+    $target_bac_sql = strtoupper($cin) ."/". basename("$rand_bac".".pdf");
+    $target_diplome_sql = strtoupper($cin) ."/". basename("$rand_diplome".".pdf");
 
     $target_cv_tmp = $_FILES["file_cv"]["tmp_name"];
     $target_cin_tmp = $_FILES["file_cin"]["tmp_name"];
     $target_bac_tmp = $_FILES["file_bac"]["tmp_name"];
     $target_diplome_tmp = $_FILES["file_diplome"]["tmp_name"];
+
+
 //Ajout des fichiers pdf dans un tableau pour la vérification
     $targget_files = array($target_cv,$target_cin,$target_bac,$target_diplome);
     $targget_files_tmp = array($target_cv_tmp,$target_cin_tmp,$target_bac_tmp,$target_diplome_tmp);
@@ -45,7 +58,7 @@ if(isset($_POST["submit"])) {
         }
     }
 $sql = "INSERT INTO preinscriptions (prenom, nom, civilite, email, cne, cin, telephone, ville, file_cv, file_cin, file_bac, file_diplome) 
-        VALUES ('$prenom','$nom','$civilite','$email','$cne','$cin','$telephone','$ville','$target_cv','$target_cin','$target_bac','$target_diplome')";
+        VALUES ('$prenom','$nom','$civilite','$email','$cne','$cin','$telephone','$ville','$target_cv_sql','$target_cin_sql','$target_bac_sql','$target_diplome_sql')";
 $conn->exec($sql);
 
 // Check if $uploadOk is set to 0 by an error
